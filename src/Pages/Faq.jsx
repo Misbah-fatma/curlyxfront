@@ -83,7 +83,7 @@ const faqs = [
 
   {/* Card Body */}
   <div className="card-team__body text-center p-4 pt-5 mt-4">
-    <h5><a href="#">{faq.question}</a></h5>
+    <h5><a href="/">{faq.question}</a></h5>
     <p className="text-muted">{faq.answer}</p>
     <div className="team-footer d-flex justify-content-between mt-3">
       <span><FaShippingFast className="me-1" /> Delivery Info</span>

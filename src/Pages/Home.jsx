@@ -2,7 +2,7 @@ import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 
 export default function HomePage() {
-      console.log(localStorage.getItem('token'))
+
   return (
      <div>
 <Navbar/>
@@ -20,8 +20,8 @@ export default function HomePage() {
                 and your family.
               </p>
 
-              <a href="" className="main_btn">Order Medicines</a>
-              <a href="" className="main_btn_light">Browse Products</a>
+              <a href="/" className="main_btn">Order Medicines</a>
+              <a href="/" className="main_btn_light">Browse Products</a>
             </div>
           </div>
         </div>

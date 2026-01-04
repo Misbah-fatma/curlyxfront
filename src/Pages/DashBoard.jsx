@@ -204,8 +204,6 @@ export default function Dashboard() {
     return null;
   }
 
-  const user = JSON.parse(atob(token.split(".")[1]));
-
   const router = {
     pathname,
     searchParams: new URLSearchParams(),

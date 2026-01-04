@@ -69,7 +69,7 @@ export default function CheckoutPage() {
 
 const token = localStorage.getItem("token");
 
-const res = await fetch("http://localhost:5009/api/orders/checkout", {
+const res = await fetch("https://curlxbackend.onrender.com/api/orders/checkout", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

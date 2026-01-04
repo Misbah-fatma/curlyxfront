@@ -21,7 +21,7 @@ export default function AllOrders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5009/api/orders/allOrders", {
+        const res = await fetch("https://curlxbackend.onrender.com/api/orders/allOrders", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

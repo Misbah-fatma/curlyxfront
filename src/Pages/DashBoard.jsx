@@ -83,14 +83,14 @@ function DashboardCards() {
     const fetchData = async () => {
       try {
         // Fetch total products
-        const resProducts = await fetch("http://localhost:5009/api/products/count", {
+        const resProducts = await fetch("https://curlxbackend.onrender.com/api/products/count", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const dataProducts = await resProducts.json();
         if (resProducts.ok) setTotalProducts(dataProducts.count);
 
         // Fetch total users
-        const resUsers = await fetch("http://localhost:5009/api/auth/count", {
+        const resUsers = await fetch("https://curlxbackend.onrender.com/api/auth/count", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const dataUsers = await resUsers.json();

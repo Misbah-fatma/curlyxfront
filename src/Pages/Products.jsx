@@ -14,7 +14,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5009/api/products")
+      .get("https://curlxbackend.onrender.com/api/products")
       .then((res) => {
         if (type) {
           const filtered = res.data.filter(

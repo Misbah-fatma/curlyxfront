@@ -14,7 +14,7 @@ export default function Login() {
     const password = data.get("password");
 
     try {
-      const res = await fetch("http://localhost:5009/api/auth/login", {
+      const res = await fetch("https://curlxbackend.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

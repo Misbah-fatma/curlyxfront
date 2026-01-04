@@ -17,7 +17,7 @@ export default function Productdisplay() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5009/api/products", {
+        const res = await fetch("https://curlxbackend.onrender.com/api/products", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

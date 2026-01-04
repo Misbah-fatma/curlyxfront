@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaShoppingCart, FaHeart, FaTruck, FaUndo } from "react-icons/fa";
 
 const Products = () => {
-      const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const { type } = useParams(); 

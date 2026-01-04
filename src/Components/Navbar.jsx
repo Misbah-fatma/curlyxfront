@@ -10,6 +10,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   useEffect(() => {
@@ -111,40 +112,41 @@ const Navbar = () => {
                   </a>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
-                      <a className="nav-link" href="/products/type/Anxiety Care">
-                        Anxiety Care
-                      </a>
-                    </li>
+  <Link className="nav-link" to="/products/type/AnxietyCare">
+    Anxiety Care
+  </Link>
+</li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/products/type/Depression Care">
-                        Depression Care
-                      </a>
-                    </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/products/type/DepressionCare">
+    Depression Care
+  </Link>
+</li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/products/type/Pain Relief">
-                        Pain Relief
-                      </a>
-                    </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/products/type/PainRelief">
+    Pain Relief
+  </Link>
+</li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/products/type/Sleep & Insomnia">
-                        Sleep & Insomnia
-                      </a>
-                    </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/products/type/Sleep&Insomnia">
+    Sleep & Insomnia
+  </Link>
+</li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/products/type/General Wellness">
-                        General Wellness
-                      </a>
-                    </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/products/type/GeneralWellness">
+    General Wellness
+  </Link>
+</li>
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="/products/type/Prescription">
-                        Prescription
-                      </a>
-                    </li>
+<li className="nav-item">
+  <Link className="nav-link" to="/products/type/Prescription">
+    Prescription
+  </Link>
+</li>
+
                   </ul>
 
                 </li>

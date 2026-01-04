@@ -1,3 +1,5 @@
+
+
 import * as React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
@@ -11,8 +13,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddProductIcon from "@mui/icons-material/AddBox";
 import PersonIcon from "@mui/icons-material/Person";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import { createTheme } from "@mui/material/styles";
 import ViewProductIcon from "@mui/icons-material/Inventory2";
+import { Button } from "@mui/material";
 
 import {
   AppProvider,
@@ -29,6 +33,7 @@ import {
 import Productdisplay from "./Dashboard/Productdisplay";
 import DashboardChart from "./Dashboard/ChartPage";
 import UsersTable from "./Dashboard/User";
+import AllOrders from "./Dashboard/AllOrder"
 
 /* ---------------- NAVIGATION ---------------- */
 
@@ -37,8 +42,8 @@ const NAVIGATION = [
   { segment: "dashboard", title: "Dashboard", icon: <DashboardIcon /> },
   { segment: "products/add", title: "Add Product", icon: <AddProductIcon /> },
   { segment: "products/view", title: "View Products", icon: <ViewProductIcon /> },
-    { segment: "users/view", title: "View Users", icon: <PersonIcon /> },
-    
+  { segment: "users/view", title: "View Users", icon: <PersonIcon /> },
+  { segment: "orders/all", title: "All Orders", icon: <ListAltIcon /> }, // <-- New entry
 ];
 
 /* ---------------- THEME ---------------- */
@@ -52,12 +57,22 @@ const theme = createTheme({
 
 function ToolbarActions() {
   return (
-    <Stack direction="row" alignItems="center">
+    <Stack direction="row" alignItems="center" spacing={2}>
+      {/* 🔗 Header Link */}
+      <Button
+        variant="text"
+        onClick={() => {
+          window.location.href = "/";
+        }}
+      >
+        Home
+      </Button>
+
+      {/* 🌗 Theme Switcher */}
       <ThemeSwitcher />
     </Stack>
   );
 }
-
 /* ---------------- DASHBOARD CARDS ---------------- */
 
 function DashboardCards() {
@@ -68,14 +83,14 @@ function DashboardCards() {
     const fetchData = async () => {
       try {
         // Fetch total products
-        const resProducts = await fetch("https://curlyxuuuu.onrender.com/api/products/count", {
+        const resProducts = await fetch("http://localhost:5009/api/products/count", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const dataProducts = await resProducts.json();
         if (resProducts.ok) setTotalProducts(dataProducts.count);
 
         // Fetch total users
-        const resUsers = await fetch("https://curlyxuuuu.onrender.com/api/auth/count", {
+        const resUsers = await fetch("http://localhost:5009/api/auth/count", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const dataUsers = await resUsers.json();
@@ -138,6 +153,7 @@ function PageContent({ pathname }) {
         </>
       )}
          {pathname === "/users/view" && <UsersTable />} 
+         {pathname === "/orders/all" && <AllOrders />}
     </Box>
   );
 }
@@ -197,26 +213,37 @@ export default function Dashboard() {
   };
 
   return (
-    <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={theme}
-      session={{
-        user: {
-          name: user.name || "User",
-          email: user.email || "",
-          image: "",
-        },
-      }}
-    >
-      <DashboardLayout
-        slots={{
-          toolbarActions: ToolbarActions,
-          sidebarFooter: SidebarAccount,
+<AppProvider
+  navigation={NAVIGATION}
+  router={router}
+  theme={theme}
+  branding={{
+     logo: (
+      <img
+        src="/logo.png"
+        alt="My App"
+        style={{
+          height: "100%",
+          objectFit: "contain",
         }}
-      >
-        <PageContent pathname={pathname} />
-      </DashboardLayout>
+      />
+    ),
+    title: "",
+  }}
+>
+
+
+<DashboardLayout
+  slots={{
+    toolbarActions: ToolbarActions,
+    sidebarFooter: SidebarAccount,
+  }}
+>
+  <PageContent pathname={pathname} />
+</DashboardLayout>
+
+
     </AppProvider>
   );
 }
+

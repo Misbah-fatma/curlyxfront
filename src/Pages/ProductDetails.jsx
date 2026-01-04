@@ -14,7 +14,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://curlyxuuuu.onrender.com/api/products/${id}`)
+      .get(`http://localhost:5009/api/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
   }, [id]);

@@ -2,6 +2,7 @@ import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 
 export default function HomePage() {
+      console.log(localStorage.getItem('token'))
   return (
      <div>
 <Navbar/>

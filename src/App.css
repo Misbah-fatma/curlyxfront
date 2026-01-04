@@ -186,3 +186,9 @@ body {
       background-color: hsla(0, 0%, 100%, 0.9) !important;
       backdrop-filter: saturate(200%) blur(25px);
     }
+
+[data-toolpad-layout="dashboard"] header[role="banner"] .MuiToolbar-root {
+  height: 72px !important;
+  min-height: 72px !important;
+  max-height: 72px !important;
+}

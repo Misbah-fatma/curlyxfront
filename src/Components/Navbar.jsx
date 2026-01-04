@@ -70,7 +70,7 @@ const Navbar = () => {
             {/* Logo */}
       <a className="navbar-brand logo_h d-flex align-items-center" href="/">
   <img
-    src="/img/logo.png"
+    src="/logo.png"
     alt="Logo"
     style={{ maxHeight: "100px" }}
   />

@@ -14,7 +14,7 @@ export default function Login() {
     const password = data.get("password");
 
     try {
-      const res = await fetch("https://curlyxuuuu.onrender.com/api/auth/login", {
+      const res = await fetch("http://localhost:5009/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -28,6 +28,7 @@ export default function Login() {
       }
 
       localStorage.setItem("token", result.token);
+      console.log(localStorage.getItem('token'))
       setSuccess("Login successful! Redirecting...");
 
       setTimeout(() => {

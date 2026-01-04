@@ -1,9 +1,11 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { useCart } from "../Context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, setCart } = useCart();
+  const navigate = useNavigate();
 
   const increaseQty = (id) => {
     setCart((prev) =>
@@ -33,6 +35,15 @@ const Cart = () => {
     (total, item) => total + item.price * item.qty,
     0
   );
+
+    const handleCheckout = () => {
+    navigate("/checkout", {
+      state: {
+        cart,
+        totalPrice,
+      },
+    });
+  };
 
   return (
     <>
@@ -147,9 +158,10 @@ const Cart = () => {
                       <span>${totalPrice.toFixed(2)}</span>
                     </div>
 
-                    <button className="btn btn-primary btn-block mt-4">
-                      Proceed to Checkout
-                    </button>
+  <button className="btn btn-primary btn-block mt-4" onClick={handleCheckout}>
+    Proceed to Checkout
+  </button>
+
                   </div>
                 </div>
               </div>

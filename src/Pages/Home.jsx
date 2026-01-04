@@ -1,5 +1,6 @@
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
 
@@ -20,8 +21,8 @@ export default function HomePage() {
                 and your family.
               </p>
 
-              <a href="/" className="main_btn">Order Medicines</a>
-              <a href="/" className="main_btn_light">Browse Products</a>
+              <Link className="main_btn" to="/products/type/AnxietyCare">Order Medicines</Link>
+              <a href="/cart" className="main_btn_light">Your Products</a>
             </div>
           </div>
         </div>

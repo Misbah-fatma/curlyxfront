@@ -27,18 +27,19 @@ const Contact = () => {
             <section className="contact-section area-padding bg-light">
                 <div className="container">
                 <div className="d-none d-sm-block mb-5 pb-4">
-  <div style={{ height: "480px", width: "100%" }}>
-    <iframe
-      title="Google Map"
-      src="https://www.google.com/maps?q=New+York&output=embed"
-      width="100%"
-      height="100%"
-      style={{ border: 0 }}
-      allowFullScreen
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-    ></iframe>
-  </div>
+ <div style={{ height: "480px", width: "100%" }}>
+  <iframe
+    title="Google Map"
+    src="https://www.google.com/maps?q=5020+California+Ave+SW+Apt+512,+Seattle,+WA+98136&output=embed"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
 </div>
 
 
@@ -80,8 +81,9 @@ const Contact = () => {
                             <div className="media contact-info">
                                 <span className="contact-info__icon"><i className="ti-home"></i></span>
                                 <div className="media-body">
-                                    <h3>Buttonwood, California.</h3>
-                                    <p>Rosemead, CA 91770</p>
+                                    <h3>5020 California Ave SW Apt. 512
+</h3>
+                                    <p>Seattle, WA 98136</p>
                                 </div>
                             </div>
                             <div className="media contact-info">

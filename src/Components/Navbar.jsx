@@ -8,9 +8,12 @@ import {
   FaWhatsapp,
   FaShoppingCart,
   FaUser,
+  FaHeart
 } from "react-icons/fa";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../Context/CartContext";
+import { useWishlist } from "../Context/WishListContext";
 
 const Navbar = () => {
   useEffect(() => {
@@ -27,6 +30,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const { cart } = useCart();
+  const { wishlist } = useWishlist();
+  const wishlistCount = wishlist.length;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Sum of quantities
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
   return (
     <header className="header_area">
       {/* ===== TOP BAR ===== */}
@@ -40,16 +51,15 @@ const Navbar = () => {
                 healthsolutionmedcare@gmail.com
               </a>
 
-            
-<a
-  href="https://wa.me/12063549780"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="dn_btn"
->
-  <FaWhatsapp className="mr-2" />
-  Chat on WhatsApp
-</a>
+              <a
+                href="https://wa.me/12063549780"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dn_btn"
+              >
+                <FaWhatsapp className="mr-2" />
+                Chat on WhatsApp
+              </a>
             </div>
 
             {/* Right Social */}
@@ -69,30 +79,33 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container">
             {/* Logo */}
-      <a className="navbar-brand logo_h d-flex align-items-center" href="/">
-  <img
-    src="/logo.png"
-    alt="Logo"
-    style={{ maxHeight: "100px" }}
-  />
-</a>
-
+            <a className="navbar-brand logo_h d-flex align-items-center" href="/">
+              <img
+                src="/logo.png"
+                alt="Logo"
+                style={{ maxHeight: "100px" }}
+              />
+            </a>
 
             {/* Mobile Toggle */}
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+           <button
+  className="navbar-toggler"
+  type="button"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+    <span className="bar mt-1"></span>
+  <span className="bar"></span>
+  <span className="bar"></span>
+</button>
+
 
             {/* Menu */}
-            <div
-              className="collapse navbar-collapse justify-content-end"
-              id="navbarSupportedContent"
-            >
+           <div
+  className={`navbar-collapse justify-content-end ${
+    menuOpen ? "show" : "collapse"
+  }`}
+>
+
               <ul className="nav navbar-nav menu_nav align-items-center">
                 <li className="nav-item">
                   <a className="nav-link" href="/">Home</a>
@@ -112,40 +125,40 @@ const Navbar = () => {
                   </a>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
-  <Link className="nav-link" to="/products/type/AnxietyCare">
-    Anxiety Care
-  </Link>
-</li>
+                      <Link className="nav-link" to="/products/type/AnxietyCare">
+                        Anxiety Care
+                      </Link>
+                    </li>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/products/type/DepressionCare">
-    Depression Care
-  </Link>
-</li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/products/type/DepressionCare">
+                        Depression Care
+                      </Link>
+                    </li>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/products/type/PainRelief">
-    Pain Relief
-  </Link>
-</li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/products/type/PainRelief">
+                        Pain Relief
+                      </Link>
+                    </li>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/products/type/Sleep&Insomnia">
-    Sleep & Insomnia
-  </Link>
-</li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/products/type/Sleep&Insomnia">
+                        Sleep & Insomnia
+                      </Link>
+                    </li>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/products/type/GeneralWellness">
-    General Wellness
-  </Link>
-</li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/products/type/GeneralWellness">
+                        General Wellness
+                      </Link>
+                    </li>
 
-<li className="nav-item">
-  <Link className="nav-link" to="/products/type/Prescription">
-    Prescription
-  </Link>
-</li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/products/type/Prescription">
+                        Prescription
+                      </Link>
+                    </li>
 
                   </ul>
 
@@ -159,10 +172,62 @@ const Navbar = () => {
                   <a className="nav-link" href="/contact">Contact</a>
                 </li>
                 {/* ===== CART + PROFILE ICONS ===== */}
-                <li className="nav-item d-flex align-items-center ml-2" style={{ gap: "10px" }}>
-                  <a className="nav-link nav-icon p-1" href="/cart">
-                    <FaShoppingCart />
-                  </a>
+                <li className="nav-item  d-flex align-items-center ml-2" style={{ gap: "10px" }}>
+                  <Link className="nav-link nav-icon-link nav-icon p-1 position-relative" to="/cart">
+                    <FaShoppingCart size={20} />
+
+                    {totalQty > 0 && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-10px",
+                          backgroundColor: "#e53935",
+                          color: "#fff",
+                          borderRadius: "50%",
+                          width: "18px",
+                          height: "18px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "11px",
+                          fontWeight: "bold",
+                          lineHeight: 1,
+                        }}
+                      >
+                        {totalQty > 99 ? "99+" : totalQty}
+                      </span>
+                    )}
+
+                  </Link>
+                  <Link
+                    className="nav-link nav-icon-link nav-icon p-1 position-relative"
+                    to="/wishlist"
+                  >
+                    <FaHeart size={20} />
+
+                    {wishlistCount > 0 && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "-2px",
+                          right: "-10px",
+                          backgroundColor: "#ff4081",
+                          color: "#fff",
+                          borderRadius: "50%",
+                          width: "18px",
+                          height: "18px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "11px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {wishlistCount > 99 ? "99+" : wishlistCount}
+                      </span>
+                    )}
+                  </Link>
 
                   <a className="nav-link nav-icon p-1" href="/login">
                     <FaUser />

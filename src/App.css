@@ -192,3 +192,13 @@ body {
   min-height: 72px !important;
   max-height: 72px !important;
 }
+
+.nav-icon-link {
+  padding: 6px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  line-height: normal !important;
+  text-transform: none !important;
+}
+

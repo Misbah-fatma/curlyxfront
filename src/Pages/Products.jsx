@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 import { useCart } from "../Context/CartContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaShoppingCart, FaHeart, FaTruck, FaUndo } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import {useWishlist} from "../Context/WishListContext"
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
   const navigate = useNavigate();
   const { type } = useParams(); 
 
@@ -33,26 +36,26 @@ const Products = () => {
       <Navbar />
 
       {/* ===== Banner ===== */}
-      <section className="banner_area">
-        <div className="banner_inner d-flex align-items-center">
-          <div className="container">
-            <div className="banner_content d-md-flex justify-content-between align-items-center">
-              <div className="mb-3 mb-md-0">
-                <h2>Painkiller</h2>
-                <p>
-                  Browse trusted medicines for fast and effective pain relief
-                </p>
-              </div>
-
-              <div className="page_link">
-                <a href="/">Home</a>
-                <a href="/products">Shop</a>
-                <span>Painkiller</span>
-              </div>
-            </div>
-          </div>
+<section className="banner_area">
+  <div className="banner_inner d-flex align-items-center">
+    <div className="container">
+      <div className="banner_content d-md-flex justify-content-between align-items-center">
+        <div className="mb-3 mb-md-0">
+          <h2>All Products</h2>
+          <p>
+            Browse our complete range of trusted medicines and healthcare
+            products
+          </p>
         </div>
-      </section>
+
+        <div className="page_link">
+          <Link to="/">Home</Link>
+          <span>All Products</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ===== Products Section ===== */}
       <section className="blog_area single-post-area area-padding bg-light">
@@ -167,13 +170,17 @@ const Products = () => {
                     Add to Cart
                   </button>
 
-                  <button
-                    className="btn btn-outline-secondary"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <FaHeart className="me-2" />
-                    Add to Wishlist
-                  </button>
+                 <button
+  className="btn btn-outline-secondary"
+  onClick={(e) => {
+    e.stopPropagation();
+    addToWishlist(product);
+  }}
+>
+  <FaHeart className="me-2" />
+  Add to Wishlist
+</button>
+
                 </div>
               </div>
 

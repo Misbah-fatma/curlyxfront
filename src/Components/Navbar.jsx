@@ -53,11 +53,11 @@ const Navbar = () => {
 
             {/* Right Social */}
             <ul className="list header_social d-flex mb-0">
-              <li className="ml-2"><a href="#"><FaFacebookF /></a></li>
-              <li className="ml-2"><a href="#"><FaTwitter /></a></li>
-              <li className="ml-2"><a href="#"><FaLinkedinIn /></a></li>
-              <li className="ml-2"><a href="#"><FaSkype /></a></li>
-              <li className="ml-2"><a href="#"><FaVimeoV /></a></li>
+              <li className="ml-2"><a href="/"><FaFacebookF /></a></li>
+              <li className="ml-2"><a href="/"><FaTwitter /></a></li>
+              <li className="ml-2"><a href="/"><FaLinkedinIn /></a></li>
+              <li className="ml-2"><a href="/"><FaSkype /></a></li>
+              <li className="ml-2"><a href="/"><FaVimeoV /></a></li>
             </ul>
           </div>
         </div>
@@ -103,7 +103,7 @@ const Navbar = () => {
 
                 <li className="nav-item submenu dropdown">
                   <a
-                    href="#"
+                    href="/"
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
                   >

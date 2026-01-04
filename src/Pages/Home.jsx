@@ -110,7 +110,7 @@ export default function HomePage() {
                   health needs and recommend suitable medications, guiding you
                   through your treatment journey with ongoing support.
                 </p>
-                <a className="card-service__link" href="#">Learn More</a>
+                <a className="card-service__link" href="/">Learn More</a>
               </div>
             </div>
 
@@ -125,7 +125,7 @@ export default function HomePage() {
                   requirements, ensuring effective treatment and long-term
                   well-being with expert guidance at every stage.
                 </p>
-                <a className="card-service__link" href="#">Learn More</a>
+                <a className="card-service__link" href="/">Learn More</a>
               </div>
             </div>
 
@@ -141,7 +141,7 @@ export default function HomePage() {
                   live chat. Enjoy a seamless online ordering experience with
                   reliable doorstep delivery designed for your comfort and care.
                 </p>
-                <a className="card-service__link" href="#">We Are Here</a>
+                <a className="card-service__link" href="/">We Are Here</a>
               </div>
             </div>
 
@@ -171,7 +171,7 @@ export default function HomePage() {
                   for you every day.
                 </p>
 
-                <a className="link_one" href="#">Learn More</a>
+                <a className="link_one" href="/">Learn More</a>
 
               </div>
             </div>
@@ -201,7 +201,7 @@ export default function HomePage() {
               <div className="card card-team">
                 <img className="card-img rounded-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8KUTCvpajEUZ_arWsbA9GUD6OwfhmzUCXZw&s" alt="Customer"/>
                   <div className="card-team__body text-center">
-                    <h3><a href="#">Sarah M.</a></h3>
+                    <h3><a href="/">Sarah M.</a></h3>
                     <p>Verified Customer</p>
 
                     <p className="mt-3">
@@ -227,7 +227,7 @@ export default function HomePage() {
               <div className="card card-team">
                 <img className="card-img rounded-0" src="https://www.svgrepo.com/show/192244/man-user.svg" alt="Customer"/>
                   <div className="card-team__body text-center">
-                    <h3><a href="#">James R.</a></h3>
+                    <h3><a href="/">James R.</a></h3>
                     <p>Verified Customer</p>
 
                     <p className="mt-3">
@@ -254,7 +254,7 @@ export default function HomePage() {
               <div className="card card-team">
                 <img className="card-img rounded-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJaBE1zGqFHvIzpdYXTr1d8jsfO2ywxZceFw&s" alt="Customer"/>
                   <div className="card-team__body text-center">
-                    <h3><a href="#">Emily K.</a></h3>
+                    <h3><a href="/">Emily K.</a></h3>
                     <p>Verified Customer</p>
 
                     <p className="mt-3">

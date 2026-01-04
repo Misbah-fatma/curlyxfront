@@ -19,19 +19,19 @@ const Footer = () => {
             <div className="col-lg-2 col-sm-6 single-footer-widget">
               <h4>Essential Links</h4>
               <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Shop Medicines</a></li>
-                <li><a href="#">Track Order</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/">About Us</a></li>
+                <li><a href="/">Shop Medicines</a></li>
+                <li><a href="/">Track Order</a></li>
               </ul>
             </div>
             <div className="col-lg-2 col-sm-6 single-footer-widget">
               <h4>Our Policy</h4>
               <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms & Conditons</a></li>
-                <li><a href="#">Refund</a></li>
-                <li><a href="#">Return Policies</a></li>
+                <li><a href="/">Privacy Policy</a></li>
+                <li><a href="/">Terms & Conditons</a></li>
+                <li><a href="/">Refund</a></li>
+                <li><a href="/">Return Policies</a></li>
               </ul>
             </div>
             <div className="col-lg-4 col-md-6 single-footer-widget">
@@ -61,10 +61,10 @@ const Footer = () => {
           
             </p>
             <div className="col-lg-4 col-sm-12 footer-social">
-              <a href="#"><i className="fab fa-facebook-f"></i></a>
-              <a href="#"><i className="fab fa-twitter"></i></a>
-              <a href="#"><i className="fab fa-dribbble"></i></a>
-              <a href="#"><i className="fab fa-linkedin"></i></a>
+              <a href="/"><i className="fab fa-facebook-f"></i></a>
+              <a href="/"><i className="fab fa-twitter"></i></a>
+              <a href="/"><i className="fab fa-dribbble"></i></a>
+              <a href="/"><i className="fab fa-linkedin"></i></a>
             </div>
             </div>
         </div>

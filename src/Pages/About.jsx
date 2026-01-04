@@ -47,7 +47,7 @@ const About = () => {
                                     make informed decisions and feel supported at every stage of your health.
                                 </p>
 
-                                <a className="link_one" href="#">Learn More</a>
+                                <a className="link_one" href="/">Learn More</a>
 
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const About = () => {
                                     health needs. From medication guidance to lifestyle advice,
                                     we help keep your treatment aligned and effective.
                                 </p>
-                                <a className="card-service__link" href="#">Explore Care</a>
+                                <a className="card-service__link" href="/">Explore Care</a>
                             </div>
                         </div>
 
@@ -100,7 +100,7 @@ const About = () => {
                                     alerts and structured support. Our system is designed to make
                                     ongoing care simpler, reliable, and stress-free.
                                 </p>
-                                <a className="card-service__link" href="#">Stay On Track</a>
+                                <a className="card-service__link" href="/">Stay On Track</a>
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@ const About = () => {
                                     concierge is available around the clock to answer questions,
                                     support orders, and ensure peace of mind—day or night.
                                 </p>
-                                <a className="card-service__link" href="#">We’re Available</a>
+                                <a className="card-service__link" href="/">We’re Available</a>
                             </div>
                         </div>
 

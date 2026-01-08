@@ -78,7 +78,7 @@ const addSection = (type) => {
     data.append("sections", JSON.stringify(sections));
 
     try {
-      const res = await fetch("https://curlxbackend.onrender.com/api/products", {
+      const res = await fetch(`${process.env.REACT_APP_BASEURL}/products`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -17,7 +17,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("https://curlxbackend.onrender.com/api/products")
+      .get(`${process.env.REACT_APP_BASEURL}/products`)
       .then((res) => {
         if (type) {
           const filtered = res.data.filter(

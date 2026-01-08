@@ -1,58 +1,179 @@
 import React, { useEffect, useState } from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Stack,
+  Typography,
+} from "@mui/material";
 
-export default function Productdisplay() {
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
+const columns = [
+  { id: "image", label: "Image", minWidth: 100 },
+  { id: "name", label: "Product Name", minWidth: 150 },
+  { id: "category", label: "Category", minWidth: 120 },
+  { id: "price", label: "Price", minWidth: 80, align: "right" },
+  { id: "quantity", label: "Qty", minWidth: 80, align: "right" },
+  { id: "description", label: "Description", minWidth: 200 },
+  { id: "actions", label: "Actions", minWidth: 120 },
+];
+
+export default function ProductPage() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // Fetch products from backend
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("https://curlxbackend.onrender.com/api/products", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await res.json();
-        if (res.ok) setProducts(data);
-      } catch (err) {
-        console.error("Failed to fetch products:", err);
-      }
-    };
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+const [openDelete, setOpenDelete] = useState(false);
+const [deleteId, setDeleteId] = useState(null);
 
+const [snackbarOpen, setSnackbarOpen] = useState(false);
+const [snackbarMsg, setSnackbarMsg] = useState("");
+const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+
+
+  /* ================= FETCH PRODUCTS ================= */
+  useEffect(() => {
     fetchProducts();
   }, []);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BASEURL}/products`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (res.ok) setProducts(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+  console.log(products)
+
+  /* ================= PAGINATION ================= */
+  const handleChangePage = (e, newPage) => setPage(newPage);
+
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(+e.target.value);
     setPage(0);
   };
 
-  const columns = [
-    { id: "image", label: "Image", minWidth: 100 },
-    { id: "name", label: "Product Name", minWidth: 150 },
-    { id: "category", label: "Category", minWidth: 100 },
-    { id: "price", label: "Price", minWidth: 80, align: "right" },
-    { id: "quantity", label: "Quantity", minWidth: 80, align: "right" },
-    { id: "description", label: "Description", minWidth: 200 },
-  ];
+  /* ================= EDIT ================= */
+  const handleEditOpen = (product) => {
+    setSelectedProduct(product);
+    setOpenEdit(true);
+  };
+
+  const handleEditClose = () => {
+    setOpenEdit(false);
+    setSelectedProduct(null);
+  };
+
+  const handleDeleteClick = (id) => {
+  setDeleteId(id);
+  setOpenDelete(true);
+};
+
+
+const handleUpdateProduct = async () => {
+  const res = await fetch(
+    `${process.env.REACT_APP_BASEURL}/products/update/${selectedProduct._id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(selectedProduct),
+    }
+  );
+
+  if (res.ok) {
+    const updated = await res.json();
+
+    setProducts((prev) =>
+      prev.map((p) => (p._id === updated._id ? updated : p))
+    );
+
+    handleEditClose();
+    setSnackbarMsg("Product updated successfully!");
+    setSnackbarSeverity("success");
+    setSnackbarOpen(true);
+  } else {
+    setSnackbarMsg("Failed to update product");
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
+  }
+};
+
+
+  /* ================= DELETE ================= */
+const confirmDelete = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.REACT_APP_BASEURL}/products/delete/${deleteId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (res.ok) {
+      setProducts((prev) => prev.filter((p) => p._id !== deleteId));
+
+      setSnackbarMsg("Product deleted successfully");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+    } else {
+      setSnackbarMsg("Failed to delete product");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+  } catch (err) {
+    setSnackbarMsg("Something went wrong");
+    setSnackbarSeverity("error");
+    setSnackbarOpen(true);
+  } finally {
+    setOpenDelete(false);
+    setDeleteId(null);
+  }
+};
+
 
   return (
-    <Paper sx={{ width: "100%", mt: 4 }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{ width: "100%", p: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Product Management
+      </Typography>
+
+      {/* ================= TABLE ================= */}
+      <TableContainer sx={{ maxHeight: 520 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
@@ -60,7 +181,7 @@ export default function Productdisplay() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  sx={{ fontWeight: 600 }}
                 >
                   {column.label}
                 </TableCell>
@@ -71,16 +192,38 @@ export default function Productdisplay() {
           <TableBody>
             {products
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((product, idx) => (
-                <TableRow hover key={idx}>
+              .map((product) => (
+                <TableRow hover key={product._id}>
                   {columns.map((column) => (
                     <TableCell key={column.id} align={column.align}>
-                      {column.id === "image" && product.image ? (
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          style={{ width: 60, height: 60, objectFit: "cover", borderRadius: 4 }}
-                        />
+                      {column.id === "image" ? (
+                        product.image ? (
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            style={{
+                              width: 60,
+                              height: 60,
+                              objectFit: "cover",
+                              borderRadius: 6,
+                            }}
+                          />
+                        ) : (
+                          "—"
+                        )
+                      ) : column.id === "actions" ? (
+                        <Stack direction="row" spacing={1}>
+                          <IconButton
+                            color="primary"
+                            onClick={() => handleEditOpen(product)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton color="error" onClick={() => handleDeleteClick(product._id)}>
+  <DeleteIcon />
+</IconButton>
+
+                        </Stack>
                       ) : (
                         product[column.id]
                       )}
@@ -101,6 +244,103 @@ export default function Productdisplay() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+<Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+  <DialogTitle>Delete Product</DialogTitle>
+
+  <DialogContent>
+    Are you sure you want to delete this product?
+    This action cannot be undone.
+  </DialogContent>
+
+  <DialogActions>
+    <Button onClick={() => setOpenDelete(false)}>Cancel</Button>
+    <Button color="error" variant="contained" onClick={confirmDelete}>
+      Delete
+    </Button>
+  </DialogActions>
+</Dialog>
+
+      {/* ================= EDIT DIALOG ================= */}
+      <Dialog open={openEdit} onClose={handleEditClose} fullWidth>
+        <DialogTitle>Edit Product</DialogTitle>
+
+        <DialogContent sx={{ display: "grid", gap: 2, mt: 1 }}>
+          <TextField
+            label="Product Name"
+            value={selectedProduct?.name || ""}
+            onChange={(e) =>
+              setSelectedProduct({ ...selectedProduct, name: e.target.value })
+            }
+          />
+          <TextField
+            label="Category"
+            value={selectedProduct?.category || ""}
+            onChange={(e) =>
+              setSelectedProduct({
+                ...selectedProduct,
+                category: e.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Price"
+            type="number"
+            value={selectedProduct?.price || ""}
+            onChange={(e) =>
+              setSelectedProduct({
+                ...selectedProduct,
+                price: e.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Quantity"
+            type="number"
+            value={selectedProduct?.quantity || ""}
+            onChange={(e) =>
+              setSelectedProduct({
+                ...selectedProduct,
+                quantity: e.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Description"
+            multiline
+            rows={3}
+            value={selectedProduct?.description || ""}
+            onChange={(e) =>
+              setSelectedProduct({
+                ...selectedProduct,
+                description: e.target.value,
+              })
+            }
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleEditClose}>Cancel</Button>
+          <Button variant="contained" onClick={handleUpdateProduct}>
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar
+  open={snackbarOpen}
+  autoHideDuration={3000}
+  onClose={() => setSnackbarOpen(false)}
+  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+>
+  <Alert
+    onClose={() => setSnackbarOpen(false)}
+    severity={snackbarSeverity}
+    variant="filled"
+    sx={{ width: "100%" }}
+  >
+    {snackbarMsg}
+  </Alert>
+</Snackbar>
+
     </Paper>
   );
 }

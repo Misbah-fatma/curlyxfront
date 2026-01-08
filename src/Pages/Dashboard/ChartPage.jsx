@@ -22,12 +22,12 @@ export default function DashboardChart() {
       try {
         const token = localStorage.getItem("token");
 
-        const resProducts = await fetch("https://curlxbackend.onrender.com/api/products/count", {
+        const resProducts = await fetch(`${process.env.REACT_APP_BASEURL}/products/count`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const dataProducts = await resProducts.json();
 
-        const resUsers = await fetch("https://curlxbackend.onrender.com/api/auth/count", {
+        const resUsers = await fetch(`${process.env.REACT_APP_BASEURL}/auth/count`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const dataUsers = await resUsers.json();

@@ -19,7 +19,7 @@ export default function UsersTable() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("https://curlxbackend.onrender.com/api/auth/users", {
+        const res = await fetch(`${process.env.REACT_APP_BASEURL}/auth/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

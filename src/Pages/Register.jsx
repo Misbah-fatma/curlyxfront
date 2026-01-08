@@ -23,7 +23,7 @@ export default function Register() {
     }
 
     try {
-      const res = await fetch("https://curlxbackend.onrender.com/api/auth/register", {
+      const res = await fetch(`${process.env.REACT_APP_BASEURL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

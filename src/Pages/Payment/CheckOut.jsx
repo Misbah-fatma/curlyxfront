@@ -48,12 +48,12 @@ const paymentDetails = {
 /* ---------------- CHECKOUT PAGE ---------------- */
 
 export default function CheckoutPage() {
-        console.log(localStorage.getItem('token'))
   const { state } = useLocation();
   const navigate = useNavigate();
 
   const [paymentMethod, setPaymentMethod] = useState("");
   const [loading, setLoading] = useState(false);
+  const [paymentId, setPaymentId] = useState("");
 
   useEffect(() => {
     if (!state?.cart) navigate("/cart");
@@ -69,17 +69,19 @@ export default function CheckoutPage() {
 
 const token = localStorage.getItem("token");
 
-const res = await fetch("https://curlxbackend.onrender.com/api/orders/checkout", {
+const res = await fetch(`${process.env.REACT_APP_BASEURL}/orders/checkout`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`, // ✅ pass the token
   },
-  body: JSON.stringify({
-    items: cart,
-    amount: totalPrice,
-    paymentMethod,
-  }),
+body: JSON.stringify({
+  items: cart,
+  amount: totalPrice,
+  paymentMethod,
+  paymentId, // ✅ send payment id
+}),
+
 });
 
       const data = await res.json();
@@ -181,24 +183,42 @@ const res = await fetch("https://curlxbackend.onrender.com/api/orders/checkout",
                       }
                     />
 
-                    {paymentMethod === key && (
-                      <Box sx={{ ml: 4, mt: 1 }}>
-                        <Chip
-                          label={method.info}
-                          color="primary"
-                          variant="outlined"
-                        />
-                        {method.warning && (
-                          <Typography
-                            fontSize={12}
-                            color="error"
-                            mt={1}
-                          >
-                            ⚠ {method.warning}
-                          </Typography>
-                        )}
-                      </Box>
-                    )}
+                  {paymentMethod === key && (
+  <Box sx={{ ml: 4, mt: 2 }}>
+    <Chip
+      label={method.info}
+      color="primary"
+      variant="outlined"
+    />
+
+    {method.warning && (
+      <Typography fontSize={12} color="error" mt={1}>
+        ⚠ {method.warning}
+      </Typography>
+    )}
+
+    {/* ✅ PAYMENT ID INPUT */}
+    <Box mt={2}>
+      <Typography fontSize={13} fontWeight={600} mb={0.5}>
+        Enter Payment ID / Transaction ID
+      </Typography>
+      <input
+        type="text"
+        value={paymentId}
+        onChange={(e) => setPaymentId(e.target.value)}
+        placeholder="e.g. TXN123456"
+        style={{
+          width: "100%",
+          padding: "10px",
+          borderRadius: "6px",
+          border: "1px solid #ccc",
+          fontSize: "14px",
+        }}
+      />
+    </Box>
+  </Box>
+)}
+
                   </Paper>
                 )
               )}

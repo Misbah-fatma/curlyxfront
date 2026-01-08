@@ -1,43 +1,49 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setSuccess("");
 
-    const data = new FormData(e.currentTarget);
-    const email = data.get("email");
-    const password = data.get("password");
+  const data = new FormData(e.currentTarget);
+  const email = data.get("email");
+  const password = data.get("password");
 
-    try {
-      const res = await fetch("https://curlxbackend.onrender.com/api/auth/login", {
-        method: "POST",
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASEURL}/auth/login`,
+      { email, password },
+      {
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        setError(result.message || "Login failed");
-        return;
       }
+    );
 
-      localStorage.setItem("token", result.token);
-      console.log(localStorage.getItem('token'))
-      setSuccess("Login successful! Redirecting...");
+    const { token, user } = res.data;
+    console.log(res.data)
+localStorage.setItem("data", user)
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", user.id);
+    localStorage.setItem("userName", user.name);
+    localStorage.setItem("userEmail", user.email);
+    localStorage.setItem("userRole", user.role);
 
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 1200);
-    } catch (err) {
-      setError("Server error. Please try again later.");
-    }
-  };
+    setSuccess(`Welcome back, ${user.name}! 🎉`);
+
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 1200);
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+        "Server error. Please try again later."
+    );
+  }
+};
 
   return (
     <section className="background-radial-gradient overflow-hidden">

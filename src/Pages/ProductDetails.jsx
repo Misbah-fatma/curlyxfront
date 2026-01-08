@@ -14,7 +14,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://curlxbackend.onrender.com/api/products/${id}`)
+      .get(`${process.env.REACT_APP_BASEURL}/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error(err));
   }, [id]);

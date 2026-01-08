@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import { useWishlist } from "../Context/WishListContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   useEffect(() => {
@@ -37,6 +38,16 @@ const Navbar = () => {
 
   // Sum of quantities
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  const token = localStorage.getItem("token");
+const userName = localStorage.getItem("userName");
+const navigate = useNavigate();
+const role= localStorage.getItem("userRole");
+
+const logout = () => {
+  localStorage.clear();
+  navigate("/login");
+};
+
 
   return (
     <header className="header_area">
@@ -88,23 +99,22 @@ const Navbar = () => {
             </a>
 
             {/* Mobile Toggle */}
-           <button
-  className="navbar-toggler"
-  type="button"
-  onClick={() => setMenuOpen(!menuOpen)}
->
-    <span className="bar mt-1"></span>
-  <span className="bar"></span>
-  <span className="bar"></span>
-</button>
+            <button
+              className="navbar-toggler"
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span className="bar mt-1"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </button>
 
 
             {/* Menu */}
-           <div
-  className={`navbar-collapse justify-content-end ${
-    menuOpen ? "show" : "collapse"
-  }`}
->
+            <div
+              className={`navbar-collapse justify-content-end ${menuOpen ? "show" : "collapse"
+                }`}
+            >
 
               <ul className="nav navbar-nav menu_nav align-items-center">
                 <li className="nav-item">
@@ -229,9 +239,48 @@ const Navbar = () => {
                     )}
                   </Link>
 
-                  <a className="nav-link nav-icon p-1" href="/login">
-                    <FaUser />
-                  </a>
+                <li className="nav-item submenu dropdown">
+  {!token ? (
+    /* ===== NOT LOGGED IN ===== */
+    <a href="/login" className="nav-link">
+      <FaUser />
+    </a>
+  ) : (
+    <>
+      <a
+        href="/#"
+        className="nav-link dropdown-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        👤 {userName} <span className="ml-1">&#9662;</span>
+      </a>
+
+      <ul className="dropdown-menu">
+     <li className="nav-item">
+  <Link
+    className="nav-link"
+    to={role === "admin" ? "/dashboard" : "/profile"}
+  >
+    Profile
+  </Link>
+</li>
+
+        <li className="nav-item">
+          <button
+            className="nav-link text-danger bg-transparent border-0 w-100 text-left"
+            onClick={logout}
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    </>
+  )}
+</li>
+
                 </li>
 
               </ul>

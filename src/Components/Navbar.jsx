@@ -42,6 +42,7 @@ const Navbar = () => {
 const userName = localStorage.getItem("userName");
 const navigate = useNavigate();
 const role= localStorage.getItem("userRole");
+console.log("User Role:", role);
 
 const logout = () => {
   localStorage.clear();
@@ -135,38 +136,38 @@ const logout = () => {
                   </a>
                   <ul className="dropdown-menu">
                     <li className="nav-item">
-                      <Link className="nav-link" to="/products/type/AnxietyCare">
-                        Anxiety Care
+                      <Link className="nav-link" to="/products/type/Painkiller">
+                        Painkiller
                       </Link>
                     </li>
 
                     <li className="nav-item">
-                      <Link className="nav-link" to="/products/type/DepressionCare">
-                        Depression Care
+                      <Link className="nav-link" to="/products/type/Anxiety-and-Antidepressant">
+                        Anxiety-and-Antidepressant
                       </Link>
                     </li>
 
                     <li className="nav-item">
-                      <Link className="nav-link" to="/products/type/PainRelief">
-                        Pain Relief
+                      <Link className="nav-link" to="/products/type/SleepDisorder">
+                        Sleep Disorder
                       </Link>
                     </li>
 
                     <li className="nav-item">
-                      <Link className="nav-link" to="/products/type/Sleep&Insomnia">
-                        Sleep & Insomnia
+                      <Link className="nav-link" to="/products/type/hypertensio">
+                        HyperTension
                       </Link>
                     </li>
 
                     <li className="nav-item">
                       <Link className="nav-link" to="/products/type/GeneralWellness">
-                        General Wellness
+                        Erection Dyfunction
                       </Link>
                     </li>
 
                     <li className="nav-item">
-                      <Link className="nav-link" to="/products/type/Prescription">
-                        Prescription
+                      <Link className="nav-link" to="/products/type/WeightManagement">
+                        Weight Management
                       </Link>
                     </li>
 

@@ -125,12 +125,15 @@ const addSection = (type) => {
               onChange={(e) => setMedicineType(e.target.value)}
               required
             >
-              <MenuItem value="Anxiety Care">Anxiety Care</MenuItem>
-              <MenuItem value="Depression Care">Depression Care</MenuItem>
-              <MenuItem value="Pain Relief">Pain Relief</MenuItem>
-              <MenuItem value="Sleep & Insomnia">Sleep & Insomnia</MenuItem>
-              <MenuItem value="General Wellness">General Wellness</MenuItem>
-              <MenuItem value="Prescription">Prescription</MenuItem>
+    <MenuItem value="Painkiller">Painkiller</MenuItem>
+<MenuItem value="Anxiety-and-Antidepressant">
+  Anxiety & Antidepressant
+</MenuItem>
+<MenuItem value="SleepDisorder">Sleep Disorder</MenuItem>
+<MenuItem value="Hypertension">Hypertension</MenuItem>
+<MenuItem value="GeneralWellness">General Wellness</MenuItem>
+<MenuItem value="WeightManagement">Weight Management</MenuItem>
+
             </TextField>
           </Grid>
         </Grid>
@@ -151,9 +154,20 @@ const addSection = (type) => {
                 <TextField fullWidth label="Quantity" name="quantity" type="number" required />
               </Grid>
 
-              <Grid size={6}>
-                <TextField fullWidth label="Price" name="price" type="number" required />
-              </Grid>
+             <Grid size={6}>
+  <TextField
+    fullWidth
+    label="Price"
+    name="price"
+    type="number"
+    required
+    inputProps={{
+      step: "0.01",   // allows decimals like 10.50
+      min: "0"        // optional: prevents negative prices
+    }}
+  />
+</Grid>
+
             </Grid>
 
             {/* ================= IMAGE ================= */}

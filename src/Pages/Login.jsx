@@ -24,8 +24,9 @@ const handleSubmit = async (e) => {
     );
 
     const { token, user } = res.data;
-    console.log(res.data)
-localStorage.setItem("data", user)
+
+    // Store data safely
+    localStorage.setItem("data", JSON.stringify(user));
     localStorage.setItem("token", token);
     localStorage.setItem("userId", user.id);
     localStorage.setItem("userName", user.name);
@@ -34,16 +35,29 @@ localStorage.setItem("data", user)
 
     setSuccess(`Welcome back, ${user.name}! 🎉`);
 
+    // Role-based navigation
+    let redirectPath = "/"; // default
+
+    switch (user.role) {
+      case "admin":
+        redirectPath = "/dashboard";
+        break;
+
+      default:
+        redirectPath = "/";
+    }
+
     setTimeout(() => {
-      window.location.href = "/dashboard";
+      window.location.href = redirectPath;
     }, 1200);
   } catch (err) {
     setError(
       err.response?.data?.message ||
-        "Server error. Please try again later."
+      "Server error. Please try again later."
     );
   }
 };
+
 
   return (
     <section className="background-radial-gradient overflow-hidden">

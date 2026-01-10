@@ -252,3 +252,14 @@ body {
     border-bottom: 1px solid #ddd;
   }
 }
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 10px;
+}
+
+.dropdown-menu .nav-item {
+  white-space: nowrap;
+}

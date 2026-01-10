@@ -178,11 +178,14 @@ const getSection = (type) =>
               {/* ===== Tab Content ===== */}
              <div className="tab-content p-4 border rounded bg-white">
   {/* ===== Description ===== */}
-  {activeTab === "description" && (
-    <p>
-      {getSection("description")?.content || "No description available"}
-    </p>
-  )}
+{activeTab === "description" && (
+  <div
+    dangerouslySetInnerHTML={{
+      __html: getSection("description")?.content || "<p>No description available</p>",
+    }}
+  />
+)}
+
 
   {/* ===== Additional Info ===== */}
   {activeTab === "info" && (

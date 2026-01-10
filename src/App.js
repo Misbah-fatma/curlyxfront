@@ -14,10 +14,12 @@ import CheckoutPage from "./Pages/Payment/CheckOut";
 import OrderSuccess from "./Pages/Payment/OrderSuccess";
 import Wishlist from "./Pages/WishList";
 import Profile from "./Pages/Profile";
+import FloatingActions from "./Pages/floatingActions";
 
 function App() {
   return (
     <Router>
+      <FloatingActions />
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />

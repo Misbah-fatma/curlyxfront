@@ -6,14 +6,14 @@ import { useCart } from "../Context/CartContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaShoppingCart, FaHeart, FaTruck, FaUndo } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import {useWishlist} from "../Context/WishListContext"
+import { useWishlist } from "../Context/WishListContext"
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
   const { addToWishlist } = useWishlist();
   const navigate = useNavigate();
-  const { type } = useParams(); 
+  const { type } = useParams();
 
   useEffect(() => {
     axios
@@ -36,26 +36,26 @@ const Products = () => {
       <Navbar />
 
       {/* ===== Banner ===== */}
-<section className="banner_area">
-  <div className="banner_inner d-flex align-items-center">
-    <div className="container">
-      <div className="banner_content d-md-flex justify-content-between align-items-center">
-        <div className="mb-3 mb-md-0">
-          <h2>All Products</h2>
-          <p>
-            Browse our complete range of trusted medicines and healthcare
-            products
-          </p>
-        </div>
+      <section className="banner_area">
+        <div className="banner_inner d-flex align-items-center">
+          <div className="container">
+            <div className="banner_content d-md-flex justify-content-between align-items-center">
+              <div className="mb-3 mb-md-0">
+                <h2>All Products</h2>
+                <p>
+                  Browse our complete range of trusted medicines and healthcare
+                  products
+                </p>
+              </div>
 
-        <div className="page_link">
-          <Link to="/">Home</Link>
-          <span>All Products</span>
+              <div className="page_link">
+                <Link to="/">Home</Link>
+                <span>All Products</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ===== Products Section ===== */}
       <section className="blog_area single-post-area area-padding bg-light">
@@ -75,150 +75,153 @@ const Products = () => {
             </div>
           </div>
 
-         <div className="row mt-4">
-  {products.length > 0 ? (
-    products.map((product) => (
-      <div className="bg-light p-4">
-          <div className="container d-flex">
-            <div
-              className="card product-card shadow-sm"
-              style={{ maxWidth: "350px", cursor: "pointer" }}
-              onClick={() => navigate(`/products/${product._id}`)}
-            >
-              {/* Image */}
-              <div className="position-relative overflow-hidden">
-                {product.onSale && (
-                  <span className="badge bg-danger position-absolute top-0 start-0 m-2">
-                    Sale!
-                  </span>
-                )}
-                <img
-                  src={product.image}
-                  className="card-img-top product-image"
-                  alt={product.name} />
-              </div>
+<div className="container">
+  <div className="row ">
+    {products.length > 0 ? (
+      products.map((product) => (
+        <div key={product._id} className="col-12 col-sm-6 col-md-4 col-lg-3">
 
-              {/* Body */}
-              <div className="card-body">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  <h5 className="card-title mb-0">{product.name}</h5>
+                <div className="bg-light ">
+                  <div className="container d-flex">
+                    <div
+                      className="card product-card shadow-sm"
+                      style={{ maxWidth: "350px", cursor: "pointer" }}
+                      onClick={() => navigate(`/products/${product._id}`)}
+                    >
+                      {/* Image */}
+                      <div className="position-relative overflow-hidden">
+                        {product.onSale && (
+                          <span className="badge bg-danger position-absolute top-0 start-0 m-2">
+                            Sale!
+                          </span>
+                        )}
+                        <img
+                          src={product.image}
+                          className="card-img-top product-image"
+                          alt={product.name} />
+                      </div>
 
-                  {/* Static rating (can be dynamic later) */}
-                  <div className="text-warning">
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStarHalfAlt />
-                  </div>
-                </div>
+                      {/* Body */}
+                      <div className="card-body">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                          <h5 className="card-title mb-0">{product.name}</h5>
 
-                <p className="card-text text-muted">
-                  {product.category || "No category available"}
-                </p>
+                          {/* Static rating (can be dynamic later) */}
+                          <div className="text-warning">
+                            <FaStar />
+                            <FaStar />
+                            <FaStar />
+                            <FaStar />
+                            <FaStarHalfAlt />
+                          </div>
+                        </div>
 
-                {/* Colors (optional) */}
-                {product.colors?.length > 0 && (
-                  <div className="mb-3">
-                    <span className="text-muted small">Available Colors:</span>
-                    <div className="mt-2 d-flex gap-2">
-                      {product.colors.map((color, index) => (
-                        <span
-                          key={index}
-                          className="rounded-circle border"
-                          style={{
-                            width: 16,
-                            height: 16,
-                            backgroundColor: color,
-                            display: "inline-block",
-                          }} />
-                      ))}
+                        <p className="card-text text-muted">
+                          {product.category || "No category available"}
+                        </p>
+
+                        {/* Colors (optional) */}
+                        {product.colors?.length > 0 && (
+                          <div className="mb-3">
+                            <span className="text-muted small">Available Colors:</span>
+                            <div className="mt-2 d-flex gap-2">
+                              {product.colors.map((color, index) => (
+                                <span
+                                  key={index}
+                                  className="rounded-circle border"
+                                  style={{
+                                    width: 16,
+                                    height: 16,
+                                    backgroundColor: color,
+                                    display: "inline-block",
+                                  }} />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Price */}
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                          <div>
+                            {product.oldPrice && (
+                              <span className="text-muted text-decoration-line-through">
+                                ${product.oldPrice}
+                              </span>
+                            )}
+                            <span className="h5 mb-0 ms-2 text-primary">
+                              ${product.price}
+                            </span>
+                          </div>
+
+                          <span
+                            className={`badge ${product.quantity > 0 ? "bg-success" : "bg-danger"}`}
+                          >
+                            {product.quantity > 0 ? "In Stock" : "Out of Stock"}
+                          </span>
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="d-grid gap-2">
+                          <button
+                            className="btn btn-primary"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToCart(product);
+                            }}
+                          >
+                            <FaShoppingCart className="me-2" />
+                            Add to Cart
+                          </button>
+
+                          <button
+                            className="btn btn-outline-secondary"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToWishlist(product);
+                            }}
+                          >
+                            <FaHeart className="me-2" />
+                            Add to Wishlist
+                          </button>
+
+                        </div>
+                      </div>
+
+                      {/* Footer */}
+                      <div className="card-footer bg-white">
+                        <div className="d-flex justify-content-between text-muted small">
+                          <span>
+                            <FaTruck className="me-2" />
+                            Free Shipping
+                          </span>
+                          <span>
+                            <FaUndo className="me-2" />
+                            30 Days Return
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
-
-                {/* Price */}
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    {product.oldPrice && (
-                      <span className="text-muted text-decoration-line-through">
-                        ${product.oldPrice}
-                      </span>
-                    )}
-                    <span className="h5 mb-0 ms-2 text-primary">
-                      ${product.price}
-                    </span>
-                  </div>
-
-                  <span
-                    className={`badge ${product.quantity > 0 ? "bg-success" : "bg-danger"}`}
-                  >
-                    {product.quantity > 0 ? "In Stock" : "Out of Stock"}
-                  </span>
                 </div>
-
-                {/* Buttons */}
-                <div className="d-grid gap-2">
-                  <button
-                    className="btn btn-primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      addToCart(product);
-                    } }
-                  >
-                    <FaShoppingCart className="me-2" />
-                    Add to Cart
-                  </button>
-
-                 <button
-  className="btn btn-outline-secondary"
-  onClick={(e) => {
-    e.stopPropagation();
-    addToWishlist(product);
-  }}
->
-  <FaHeart className="me-2" />
-  Add to Wishlist
-</button>
-
                 </div>
+              ))
+            ) : (
+              /* EMPTY STATE */
+              <div className="col-12 text-center py-5">
+                <h4 className="fw-bold text-muted">
+                  No products available for this category
+                </h4>
+                <p className="text-muted mt-2">
+                  Please check other categories or come back later.
+                </p>
               </div>
-
-              {/* Footer */}
-              <div className="card-footer bg-white">
-                <div className="d-flex justify-content-between text-muted small">
-                  <span>
-                    <FaTruck className="me-2" />
-                    Free Shipping
-                  </span>
-                  <span>
-                    <FaUndo className="me-2" />
-                    30 Days Return
-                  </span>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
-        </div>
-    ))
-  ) : (
-    /* EMPTY STATE */
-    <div className="col-12 text-center py-5">
-      <h4 className="fw-bold text-muted">
-        No products available for this category
-      </h4>
-      <p className="text-muted mt-2">
-        Please check other categories or come back later.
-      </p>
-    </div>
-  )}
-</div>
 
-          
+
+        </div>
         </div>
       </section>
-
-
       <Footer />
     </div>
   );
